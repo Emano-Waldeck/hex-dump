@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+</head>
+<body>
+  <style type="text/css">
+    body {
+      font-size: 14px;
+      display: flex;
+      gap: 20px;
+    }
+    table-view:focus-within {
+      box-shadow: 0 0 0 1px red;
+    }
+  </style>
+  <table-view id="one"></table-view>
+  <table-view id="two"></table-view>
+
+  <script type="text/javascript" src="../table-view.js"></script>
+  <script type="text/javascript" src="convert.js"></script>
+  <script>
+    const buffer = new Uint8Array(100);
+    crypto.getRandomValues(buffer);
+    // sync
+    self.one.addEventListener('change', e => {
+      self.two.select(e.target.row, e.target.column);
+    });
+    self.two.addEventListener('change', e => {
+      self.one.select(e.target.row, e.target.column);
+    });
+
+    // build
+    const {shape, hex, bin} = convert;
+    self.one.build(shape(hex([...buffer])));
+    self.two.build(shape(bin([...buffer])));
+  </script>
+</body>
+</html>

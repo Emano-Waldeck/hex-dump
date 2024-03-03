@@ -1,0 +1,59 @@
+:root {
+  --gap: 10px;
+  --header-bg: #cfeaff;
+  --bd: #ccc;
+}
+
+body {
+  overflow: hidden;
+  font-size: 13px;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  margin: 0;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  grid-gap: var(--gap);
+}
+body.dragging {
+  background: #e0e0e0;
+}
+#container {
+  display: grid;
+  place-items: center;
+  overflow: auto;
+}
+#container:empty:before {
+  font-size: 16px;
+  content: 'Drag and drop a file or double-click to start';
+  display: grid;
+  place-items: center;
+  position: absolute;
+  inset: 0 0 0 0;
+  pointer-events: none;
+}
+header {
+  display: grid;
+  grid-template-columns: 1fr repeat(6, min-content);
+  align-items: center;
+  background-color: var(--header-bg);
+  padding: var(--gap);
+  grid-gap: var(--gap);
+}
+hex-editor {
+  width: fit-content;
+  display: block;
+  font-size: 12px;
+  padding: var(--gap);
+  border: solid 1px var(--bd);
+}
+hex-editor.hidden {
+  visibility: hidden;
+}
+select {
+  background-color: #9bd3ff;
+  border: none;
+  padding: 2px 5px;
+}
+.near {
+  margin-right: -5px;
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hex Viewer</title>
+  <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+  <header>
+    <span>Hex Viewer</span>
+    <span class="near">Jump</span>
+    <form>
+      <input type="text" id="search" disabled  maxlength="8" pattern="[0-9a-fA-F]{1,8}">
+    </form>
+    <span class="near">Rows</span>
+    <select id="rows">
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+      <option value="30">30</option>
+      <option value="40">40</option>
+      <option value="50">50</option>
+      <option value="60">60</option>
+      <option value="70">70</option>
+      <option value="80">80</option>
+    </select>
+    <span class="near">Columns</span>
+    <select id="columns">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+    </select>
+  </header>
+  <div id="container"></div>
+  <hex-editor id="editor" class="hidden"></hex-editor>
+  <script type="text/javascript" src="components/table-view.js"></script>
+  <script type="text/javascript" src="components/hex-editor.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+  <script type="text/javascript" src="drag.js"></script>
+</body>
+</html>
