@@ -19,18 +19,24 @@ const offset = () => {
 self.editor.addEventListener('change', offset);
 
 self.run = async file => {
-  document.title = file.name + ' :: Hex Viewer';
+  try {
+    document.title = file.name + ' :: Hex Viewer';
 
-  self.search.disabled = false;
+    self.search.disabled = false;
 
-  self.container.append(self.editor);
+    self.container.append(self.editor);
 
-  self.editor.configure(config);
-  self.editor.source(file);
-  await self.editor.update(0);
-  self.editor.classList.remove('hidden');
+    self.editor.configure(config);
+    self.editor.source(file);
+    await self.editor.update(0);
+    self.editor.classList.remove('hidden');
 
-  offset();
+    offset();
+  }
+  catch (e) {
+    console.error(e);
+    alert(e.message);
+  }
 };
 
 self.columns.onchange = e => {
@@ -49,7 +55,7 @@ self.rows.onchange = e => {
 self.search.form.onsubmit = e => {
   e.preventDefault();
 
-  const b = this.editor.jump(self.search.value);
+  this.editor.jump(self.search.value);
 };
 self.search.oninvalid = () => self.search.setCustomValidity('Enter hexadecimal offset');
 self.search.oninput = () => self.search.setCustomValidity('');

@@ -11,7 +11,7 @@ body {
   margin: 0;
   height: 100vh;
   display: grid;
-  grid-template-rows: min-content 1fr;
+  grid-template-rows: 1fr min-content;
   grid-gap: var(--gap);
 }
 body.dragging {
@@ -21,6 +21,7 @@ body.dragging {
   display: grid;
   place-items: center;
   overflow: auto;
+  position: relative;
 }
 #container:empty:before {
   font-size: 16px;
@@ -31,7 +32,7 @@ body.dragging {
   inset: 0 0 0 0;
   pointer-events: none;
 }
-header {
+footer {
   display: grid;
   grid-template-columns: 1fr repeat(6, min-content);
   align-items: center;
@@ -48,6 +49,9 @@ hex-editor {
 }
 hex-editor.hidden {
   visibility: hidden;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 select {
   background-color: #9bd3ff;

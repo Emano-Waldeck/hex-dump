@@ -89,6 +89,11 @@ class ColumnView extends HTMLElement {
   build(lines) {
     if (this.#select.size === lines.length) {
       lines.forEach((hex, n) => {
+        // if (hex === ' ') {
+        //   this.#select.options[n].innerHTML = '&nbsp;';
+        // }
+        // else {
+        // }
         this.#select.options[n].textContent = hex;
       });
     }

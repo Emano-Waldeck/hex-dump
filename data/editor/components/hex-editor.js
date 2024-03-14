@@ -15,11 +15,11 @@ class HexEditor extends HTMLElement {
 
   static hex = array => array.map(byte => byte.toString(16).toUpperCase().padStart(2, '0'));
   static bin = array => array.map(byte => {
-    if (byte < 31 || byte > 126) {
-      return '.';
+    if (byte === 32 || byte === 160) { // space and nbsp
+      return '\u00A0';
     }
-    if (byte === 32) {
-      return '␠';
+    if (byte < 33 || byte > 126) {
+      return '.';
     }
     return String.fromCharCode(byte);
   });
@@ -170,7 +170,7 @@ class HexEditor extends HTMLElement {
     this.#bview.build(shape(bin(array), config));
 
     // resize
-    const h = Math.max(this.#gutter.offsetHeight, 200);
+    const h = Math.max(this.#gutter.offsetHeight, 50);
     this.#editor.style.height = h + 'px';
     this.#scrollbar.style.height = (h * this.#file.size / size) + 'px';
   }

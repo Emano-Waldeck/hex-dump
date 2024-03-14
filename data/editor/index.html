@@ -7,7 +7,9 @@
   <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
-  <header>
+  <div id="container"></div>
+  <hex-editor id="editor" class="hidden"></hex-editor>
+  <footer>
     <span>Hex Viewer</span>
     <span class="near">Jump</span>
     <form>
@@ -38,9 +40,7 @@
       <option value="8">8</option>
       <option value="9">9</option>
     </select>
-  </header>
-  <div id="container"></div>
-  <hex-editor id="editor" class="hidden"></hex-editor>
+  </footer>
   <script type="text/javascript" src="components/table-view.js"></script>
   <script type="text/javascript" src="components/hex-editor.js"></script>
   <script type="text/javascript" src="index.js"></script>
