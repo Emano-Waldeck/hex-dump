@@ -18,6 +18,12 @@ class HexEditor extends HTMLElement {
     if (byte === 32 || byte === 160) { // space and nbsp
       return '\u00A0';
     }
+    if (byte === 10) {
+      return '\u21B2';
+    }
+    if (byte === 13) {
+      return '\u2190';
+    }
     if (byte < 33 || byte > 126) {
       return '.';
     }
@@ -67,12 +73,14 @@ class HexEditor extends HTMLElement {
         @layer layout {
           #editor {
             width: fit-content;
-            display: flex;
+            display: grid;
+            grid-template-columns: 0 1fr;
           }
           #body {
             display: grid;
             grid-template-columns: min-content min-content min-content;
             grid-gap: var(--gap);
+            height: fit-content;
           }
           #gutter {
             color: var(--fg-inactive);
@@ -91,21 +99,38 @@ class HexEditor extends HTMLElement {
 
         @layer scrollbar {
           #editor {
-            overflow: auto;
+            overflow: hidden auto;
+            animation: detect-scroll linear;
+            animation-timeline: scroll(self);
           }
           #body {
             position: sticky;
             top: 0;
           }
+          .scrollbar {
+            background: red;
+          }
+          @keyframes detect-scroll {
+            from, to {
+              padding-inline-end: var(--gap);
+            }
+          }
+          @-moz-document url-prefix() {
+            #editor {
+              overflow: hidden scroll;
+              padding-inline-end: var(--gap);
+            }
+          }
         }
+
       </style>
       <div id="editor">
+        <div class="scrollbar">&nbsp;</div>
         <div id=body>
           <column-view id="gutter"></column-view>
           <table-view id="hview"></table-view>
           <table-view id="bview"></table-view>
         </div>
-        <div class="scrollbar"></div>
       </div>
     `;
 
@@ -170,16 +195,9 @@ class HexEditor extends HTMLElement {
     this.#bview.build(shape(bin(array), config));
 
     // resize
-    const h = Math.max(this.#gutter.offsetHeight, 50);
+    const h = Math.max(this.#gutter.offsetHeight + 1, 50);
     this.#editor.style.height = h + 'px';
     this.#scrollbar.style.height = (h * this.#file.size / size) + 'px';
-  }
-  getClientRects() {
-    return [
-      ...this.#gutter.getClientRects(),
-      ...this.#hview.getClientRects(),
-      ...this.#bview.getClientRects()
-    ];
   }
   jump(offset) {
     const i = parseInt(offset, 16);

@@ -25,10 +25,13 @@ class ColumnView extends HTMLElement {
           overflow: hidden;
           border: none;
           outline: none;
-          font-family: monospace;
+          font-family: 'DejaVu Sans Mono';
           font-size: inherit;
           color: inherit;
           background-color: inherit;
+        }
+        option {
+          min-width: 1ch;
         }
         option:checked {
           background: var(--active-bg, transparent);
@@ -41,8 +44,8 @@ class ColumnView extends HTMLElement {
       </style>
       <div id="body">
         <select id="select" size="2">
-          <option>0</option>
-          <option>0</option>
+          <option></option>
+          <option></option>
         </select>
       </div>
     `;
@@ -87,13 +90,10 @@ class ColumnView extends HTMLElement {
   }
 
   build(lines) {
-    if (this.#select.size === lines.length) {
+    // to have expanded list view, we need min size of 2
+    const size = Math.max(2, lines.length);
+    if (this.#select.size === size) {
       lines.forEach((hex, n) => {
-        // if (hex === ' ') {
-        //   this.#select.options[n].innerHTML = '&nbsp;';
-        // }
-        // else {
-        // }
         this.#select.options[n].textContent = hex;
       });
     }
@@ -104,7 +104,7 @@ class ColumnView extends HTMLElement {
         option.textContent = hex;
         this.#select.append(option);
       });
-      this.#select.size = lines.length;
+      this.#select.size = size;
     }
     this.#select.value = '';
   }

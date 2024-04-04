@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'DejaVu Sans Mono';
+    src: url('DejaVuSansMono.woff2') format('woff2'),
+         url('DejaVuSansMono.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 :root {
   --gap: 10px;
   --header-bg: #cfeaff;
